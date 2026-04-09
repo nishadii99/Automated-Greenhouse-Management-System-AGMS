@@ -1,69 +1,70 @@
-# 🌱  Automated Greenhouse Management System (AGMS)
+# 🌿 Automated Greenhouse Management System (AGMS)
 
-A cloud-based microservice system to monitor greenhouse conditions and automate actions using live IoT data.
+Spring Boot Microservices
 
----
-
-## 📐 Architecture
-
-```
-Client → API Gateway → Microservices → External IoT API
-```
-
-* API Gateway handles routing + JWT security
-* Services communicate via Eureka
-* Config Server manages centralized settings
+AGMS is a cloud-based system built to support smart agriculture using a microservices architecture. It collects real-time environmental data from an external IoT API and automatically triggers actions to maintain ideal greenhouse conditions.
 
 ---
 
-## ⚙️ Service Port Reference
+## 🏗️ System Architecture
 
-| Service            | Port | Description            |
-| ------------------ | ---- | ---------------------- |
-| Eureka Registry    | 8761 | Service discovery      |
-| Config Server      | 8888 | Centralized config     |
-| API Gateway        | 8080 | Entry point + security |
-| Zone Service       | 8081 | Manage zones           |
-| Sensor Service     | 8082 | Fetch IoT data         |
-| Automation Service | 8083 | Apply rules            |
-| Crop Service       | 8084 | Manage crops           |
+The system is designed using **Spring Cloud Microservices** to ensure scalability and flexibility.
 
----
+### 🔹 Infrastructure Layer
 
-## 🗂️ Project Structure
+* **Eureka Server** – Handles service discovery
+* **API Gateway** – Central entry point with request routing and security
+* **Config Server** – Manages centralized configuration
 
-```
-agms/
-├── infrastructure/
-├── services/
-├── config-repo/
-├── docs/
-├── postman/
-└── README.md
-```
+### 🔹 Business Services
+
+* **Zone Service** – Manages greenhouse zones and temperature limits
+* **Sensor Service** – Fetches real-time temperature and humidity data
+* **Automation Service** – Applies rules and triggers actions (fan/heater/sprinkler)
+* **Crop Service** – Tracks crop growth stages
 
 ---
 
-## 🗄️ Database
+## 🚀 Key Features
 
-Create databases:
-
-```
-zone_db_agms
-automation_db_agms
-crop_db_agms
-```
-
-Sensor service uses H2 (no setup needed).
+* **Live Data Monitoring** – Fetches IoT data at regular intervals
+* **Automated Decision Making** – Applies rules based on temperature and humidity
+* **Crop Lifecycle Tracking** – Manages stages from seedling to harvest
+* **JWT Security** – Secured APIs via API Gateway
+* **Service Communication** – Uses OpenFeign for inter-service calls
 
 ---
 
-## 🚀 Run Order
+## 🛠️ Tech Stack
+
+| Category      | Technology                             |
+| ------------- | -------------------------------------- |
+| Framework     | Spring Boot                            |
+| Microservices | Spring Cloud (Eureka, Gateway, Config) |
+| Security      | JWT                                    |
+| Communication | OpenFeign, REST                        |
+| Database      | MySQL / H2                             |
+| Testing       | Postman                                |
+
+---
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+* Java 17+
+* Maven
+* MySQL
+* Git
+
+---
+
+### ▶️ Run the System
 
 Start services in this order:
 
-1. Eureka Server
-2. Config Server
+1. Config Server
+2. Eureka Server
 3. API Gateway
 4. Zone Service
 5. Automation Service
@@ -72,81 +73,45 @@ Start services in this order:
 
 ---
 
-## 🔐 Security
+### ✅ Verify
 
-All requests must include JWT token:
+Open:
+http://localhost:8761
 
+Check all services are **UP**
+
+---
+
+## 🧪 API Testing
+
+* Import Postman collection
+* Login and get JWT token
+* Use token to access APIs via Gateway (port 8080)
+
+---
+
+## 📂 Project Structure
+
+```id="p2q7yf"
+agms/
+├── infrastructure/
+├── services/
+├── config-repo/
+├── docs/
+└── README.md
 ```
-Authorization: Bearer <token>
-```
-
-Invalid token → 401 Unauthorized
 
 ---
 
-## 📡 API Summary
+## 📌 Features Summary
 
-### Zones
-
-* POST /api/zones
-* GET /api/zones/{id}
-* PUT /api/zones/{id}
-* DELETE /api/zones/{id}
+* Real-time IoT integration
+* Automated rule engine
+* Distributed microservice design
+* Secure API access
 
 ---
 
-### Sensors
+## 👨‍💻 Author
 
-* GET /api/sensors/latest
-
----
-
-### Automation
-
-* GET /api/automation/logs
-
-Rules:
-
-* Temp high → Fan ON
-* Temp low → Heater ON
-* Humidity low → Sprinkler ON ✅
-
----
-
-### Crops
-
-* POST /api/crops
-* PUT /api/crops/{id}/status
-* GET /api/crops
-
----
-
-## 🌐 External IoT API
-
-Used to fetch live temperature and humidity data.
-Sensor service handles authentication and data fetching automatically.
-
----
-
-## 🧪 Testing
-
-* Use Postman collection
-* Login → get token
-* Test APIs via Gateway
-
----
-
-## 🛠️ Tech Stack
-
-* Spring Boot
-* Spring Cloud (Eureka, Config, Gateway)
-* JWT Security
-* OpenFeign
-* MySQL / H2
-* Postman
-
----
-
-## 📌 Note
-
-This project demonstrates microservice architecture, real-time data handling, and automated decision-making in a distributed system.
+Developed for **GDSE – Software Architectures & Design Patterns II**
